@@ -19,6 +19,8 @@ const router = express.Router();
  *       400:
  *         description: Unable to fetch data
  */
-router.get("/", fetchExternalData);
+router.get("/weather", fetchExternalData);
+
+//note access: http://localhost:3000/weather?city=Lagos
 
 export default router;

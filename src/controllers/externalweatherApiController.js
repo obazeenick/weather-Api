@@ -3,32 +3,43 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const apiKey = process.env.apiKey;
+//const apiKey = process.env.apiKey;
 
 export const fetchExternalData = async (req, res) => {
  
-  /*
-  try {
-    //our external API endpoint
-      
-       const apiUrl = `https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid={API key}`;
+  const apiKey = process.env.apiKey;
+   const baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
-    const response = await axios.get(apiUrl);
+       const city = req.query.city;
 
-    res.status(200).json({
-      status: "success",
-      message: "Data fetched successfully",
-      data: response.data,
-    });
-  } catch (error) {
-    next(error);
-  }
+       if (!city) {
+           return res.status(400).json({ error: 'City parameter is required' });
+       }
+
+       try {
+           const response = await axios.get(baseUrl, {
+               params: {
+                   q: city,
+                   appid: apiKey,
+                   units: 'metric',
+               },
+           });
+
+           const weatherData = response.data;
+        
+           res.json({
+               city: weatherData.name,
+               temperature: weatherData.main.temp,
+               description: weatherData.weather[0].description,
+           });
+       } catch (error) {
+           res.status(500).json({ error: 'Failed to fetch weather data' });
+       }
   
-    */
 
   // OR Method 2 from external API source
   
- 
+ /*
   try {
  let city = "lagos";
   
@@ -41,7 +52,7 @@ export const fetchExternalData = async (req, res) => {
     next(error);
   
 }
-    
+    */
     
     
 

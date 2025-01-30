@@ -44,7 +44,7 @@ const PORT = process.env.PORT || 3000;
 
    // Start listening
    app.listen(PORT, () => {
-    console.log(`Nicholas Server running on port ${PORT}`);
+    console.log(`Nicholas Weather API Server running on port ${PORT}`);
     console.log(`Swagger documentation available at http://localhost:${PORT}/api-docs`);
   });
 
